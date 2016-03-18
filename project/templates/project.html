@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="room_hide" >
+<table id="table" class="table table-condensed table-bordered table-hover" >
+  <thead >
+    <tr>
+      <th>项目名称</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+    </div>
+
+  <tbody>
+
+  {% for data in result %}
+  <tr>
+    <td><a href="/deploy/{{ data.id}}/">{{ data.name }}</a></td>
+    <td><a href="#this" onclick="del_project('{{ model_name }}','{{ data.name }}','{{ data.id }}')">删除</a></td>
+  {% endfor %}
+    </tdoby>
+</table>
+<center>
+  {%if result.has_previous%} <a href="?page={{result.previous_page_number}}">上一页</a> {%endif%}
+  当前页 {{ result.number }} 共 {{ result.paginator.num_pages }}
+  {% if result.has_next %} <a href="?page={{ result.next_page_number }}">下一页</a> {% endif %}
+</center>
+</div>
+<script type="text/javascript">
+function del_project(model_name,name,id){
+    if(confirm("你确认删除这个"+name+"项目吗?"))
+		    var Params={
+                model_name:model_name,
+                id:id
+            };
+	         var url="/deploy_del/";
+			 $.ajax({
+             type:"post",
+             url:url,
+             data:Params,
+             success:function(result){
+			    alert(result);
+				 location.reload();
+                    }
+                });
+}
+
+
+</script>
+{% endblock %}

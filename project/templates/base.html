@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ldap find passwd</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap -->
+{% block js %}
+<link href=" /static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<script src="/static/js/jquery-1.11.3.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+{%endblock%}
+<style type="text/css">
+body {
+	padding-top: 60px;
+	font-family: "Microsoft YaHei", 微软雅黑, "Microsoft JhengHei", 华文细黑, STHeiti, MingLiu;
+}
+td select, input {
+	width: 100% !important;
+	height:25px !important;
+	border-right-width: 0px !important;
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+	border-top-width: 0px !important;
+	padding-bottom: 0px !important;
+	padding-top: 0px !important;
+	border-bottom-width: 0px !important;
+	margin-bottom: 0px !important;
+}
+table {
+	table-layout: fixed;
+}
+td{
+text-overflow: ellipsis;
+white-space: nowrap;
+overflow: hidden;
+}
+ul{
+       margin:auto !important;
+}
+table {
+        table-layout: fixed;
+}
+
+.obj{
+  float:left; width:340px; padding:0 5px; overflow:hidden; white-space: nowrap; text-overflow: ellipsis;
+}
+.tdobj{
+  width: 400px
+}
+.tdobj span{
+  margin: 0 5px
+}
+.bg{
+  background: #000;
+  opacity: 0.5;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 99998;
+  display: none;
+}
+.blockUI{
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 1px solid #99BBE8;
+  height: 330px;
+  left: 400px;
+  position: fixed;
+  top: 200px;
+  width: 440px;
+  z-index: 99999;
+  display: none;
+}
+.blockUI strong{
+  height: 38px;
+  line-height: 38px;
+  padding-left: 10px;
+  display: block;
+  font-size: 14px;
+  color: #333;
+  border-bottom: 1px solid #99BBE8;
+  padding-left: 20px;
+}
+.blockUI ul{
+  border: 1px solid #99BBE8;
+  float: left;
+  height: 200px;
+  width: 170px;
+  overflow: auto;
+
+}
+.blockUI div{
+  height: 202px;
+  padding: 20px;
+}
+.blockUI ul li{
+  height: 24px;
+  line-height: 24px;
+  padding: 0 10px;
+}
+.blockUI ul li:hover,.blockUI ul li.hover{
+  background: #CED9E7
+}
+.blockUI p{
+  float: left;
+  width: 56px;
+  margin: 0;
+  height: 13px;
+  padding-top: 70px;
+  text-align: center;
+}
+.blockUI span{
+  display: block;
+  height: 50px;
+  text-align: right;
+  padding-right: 20px;
+}
+
+</style>
+</head>
+<body>
+</head>
+<body>
+<div class="navbar navbar-fixed-top ">
+  <div class="navbar-inner">
+    <div class="container pull-left ">
+ <a class="brand" style="font-size:15px" href="/">&nbsp; 微赛时代管理列表</a>
+      <ul class="nav pull-left">
+        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">首页<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="/" class="">管理列表</a></li>
+             <li><a href="/ops_manage_list/" class="">运维管理列表</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">用户操作<b class="caret"></b></a>
+	<ul class="dropdown-menu">
+           <li><a href="/find_password/">找回密码</a></li>
+          {% if request.user.username %}
+            <li><a href="#">{{ request.user.username }}</a></li>
+          {% else %}
+            <li><a href="/account/login/">运维登录</a></li>
+          {% endif %}
+          </ul>
+	</li>
+    </div>
+          <div class="nav pull-right">
+	{% block summary%}
+	{%endblock%}
+
+  </div>
+</div>
+</div>
+<div class="container-fluid"> 
+<div style="height:20px;"></div>
+{% if msg %}
+  <div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><lable id="msg">{{msg}}</label></div>
+{% endif %}
+  <!--<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><lable id="msg"></label></div> -->
+  {% block content %}{% endblock %} </div>
+</body>
+</html>

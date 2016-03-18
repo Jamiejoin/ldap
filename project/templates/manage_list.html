@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="room_hide" >
+<table id="table" class="table table-condensed table-bordered table-hover" >
+  <thead >
+    <tr>
+      <th>管理名称</th>
+      <th>管理地址</th>
+    </tr>
+  </thead>
+    </div>
+
+  <tbody>
+
+  {% for r in rs %}
+    {% if r.ops_manage == '1' %}
+  <tr>
+    <td><a href="#">{{ r.name }}</a></td>
+    <td><a href="{{ r.url }}">{{ r.url }}</a></td>
+    </tr>
+    {% endif %}
+  {% endfor %}
+    </tdoby>
+</table>
+<center>
+  {%if result.has_previous%} <a href="?page={{result.previous_page_number}}">上一页</a> {%endif%}
+  当前页 {{ result.number }} 共 {{ result.paginator.num_pages }}
+  {% if result.has_next %} <a href="?page={{ result.next_page_number }}">下一页</a> {% endif %}
+</center>
+</div>
+<script type="text/javascript">
+
+
+
+{% endblock %}
